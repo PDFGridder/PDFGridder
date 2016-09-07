@@ -11,18 +11,20 @@ Requirements
 * Python 2.7
 * Pycairo
 
+Configuration
+=============
+
+Fill in all your secrets in a ``.env`` file. See the ``env`` file (no initial dot) for a
+list of the necessary secrets.
+
 Installation
 ============
 
 ::
 
     $ pip install -r REQUIREMENTS.txt
-
-Configuration
-=============
-
-Fill in all your secrets in a ``.env`` file. See the ``env`` file (no initial dot) for a
-list of the necessary secrets.
+    $ ./manage.py migrate
+    $ ./manage.py collectstatic
 
 
 License
