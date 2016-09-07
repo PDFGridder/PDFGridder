@@ -16,12 +16,12 @@ Installation
 
 ::
 
-    $ pip install-r REQUIREMENTS.txt
+    $ pip install -r REQUIREMENTS.txt
 
 Configuration
 =============
 
-Fill in all your secrets in a `.env` file. See the `env` (no initial dot) for a
+Fill in all your secrets in a ``.env`` file. See the ``env`` file (no initial dot) for a
 list of the necessary secrets.
 
 
