@@ -1,0 +1,119 @@
+{% load compress avatar_tags %}<!DOCTYPE html>
+
+<html lang="en">
+<head prefix="og: http://ogp.me/ns# org_pdfgridder: 
+                  http://ogp.me/ns/apps/org_pdfgridder#">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="description" content="Build your grid system and download it as a PDF, and it's ready to print or to import in your favourite DTP application."/>
+    <meta name="keywords" content="grid system, tool, PDF, export, design, DTP, layout, prepress, graphic design"/>
+    <meta property="fb:app_id" content="{{ FACEBOOK_APP_ID }}"/>
+    <meta property="og:image" content="{{ STATIC_URL }}img/pdfgridder_bigger.png"/>
+    <meta property="og:site_name" content="PDFGridder.org"/>
+    <meta property="og:url" content="https://pdfgridder.org"/>
+
+	<title>{% block title %}PDFGridder{% endblock %}</title>
+
+    <link href="{{ STATIC_URL }}imgs/favicon.ico" rel="shortcut icon"/>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    {#<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">#}
+    {% compress css %}
+
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/header.css" type="text/css" charset="utf-8"/>
+	<link rel="stylesheet" href="{{ STATIC_URL }}css/colors.css" type="text/css" charset="utf-8"/>
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/grids_widget.css" type="text/css" charset="utf-8"/>
+	{% endcompress %}
+	{% block extrahead %}{% endblock %}
+
+    {% if not settings.DEBUG %}
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', '{{ GOOGLE_ANALYTICS_UA }}']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    {% endif %}
+</head>
+
+<body class="bannered">
+    <div id="banner">
+    {% if messages %}
+        {% for message in messages %}
+        <div id="" class="alert alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% endif %} alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <p class="text-center">{{ message.tags|title }}: {{ message }}</p>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div id="" class="alert alert-warning alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <p class="text-center">PDFGridder will be discontinued on December 31st, 2016. Its source code is available on <a href="https://github.com/PDFGridder/PDFGridder" rel="nofollow" target="_blank" class=""><i class="glyphicon glyphicon-new-window"></i> GitHub</a>.</p>
+        </div>
+    {% endif %}
+    </div>
+<div id="wrapper" class="container">
+    <div id="header">
+        <div class="row">
+            <h1 id="homelink" class="col-md-12"><a href="{% url 'home' %}">PDFGridder</a></h1>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <p id="credits">Code &amp; Design: <a href="http://curella.org">Flavio Curella</a>.</p>
+            </div>
+            <div id="login" class="col-md-3">
+            {% if user.is_authenticated %}
+            <p>Hello, <a id="logged_username" href="{% if user.profile %}{% url 'profiles_profile_detail' user.username %}{% else %}{% url 'profiles_edit_profile' %}{% endif %}" title="View your profile">{% avatar user 16 %} {{user.username}}</a>. <a href="{% url 'django.contrib.auth.views.logout' %}?next=/">Logout</a>.</p>
+            {% else %}
+            <p><a href="{% url 'django.contrib.auth.views.login' %}?next=/">Login</a> or <a href="{% url 'registration_register' %}">Signup</a> to save your grids.</p>
+            {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div id="pageTitle" class="col-md-12">
+            {% block pagetitle %}{% endblock %}
+        </div>
+    </div>
+    {% block content %}{% endblock %}
+    <footer class="row">
+        <div id="footer" class="col-md-12">
+            <div class="fb-like-box" data-href="http://www.facebook.com/pdfgridder/" data-width="225" data-show-faces="false" data-stream="false" data-header="false"></div>
+            <a href="http://pinterest.com/pin/create/button/?url=http%3A%2F%2Fpdfgridder.org%2F&media=http%3A%2F%2Fa7.sphotos.ak.fbcdn.net%2Fhphotos-ak-ash4%2F411693_376775985667207_292888497389290_1477068_1435264230_o.jpg&description=Build%20your%20grid%20system%20and%20download%20it%20as%20a%20PDF%2C%20and%20it's%20ready%20to%20print%20or%20to%20import%20in%20your%20favourite%20DTP%20application." class="pin-it-button" count-layout="vertical"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a>
+            <div id="footerCopy">
+                <p>Code &amp; Design: <em>Flavio Curella</em>. Powered by <a href="http://djangoproject.com">Django</a>.</p>
+                <p><strong>Found a bug? Got suggestion?</strong> Write to: <script type="text/javascript">document.write(
+        "<n uers=\"znvygb:fhccbeg\100cqstevqqre\056bet\">fhccbeg\100cqstevqqre\056bet<\057n>".replace(/[a-zA-Z]/g, function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));
+        </script></p>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<div id="modal"></div>
+
+{% block jslibrary %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+{% endblock %}
+
+{% compress js %}
+<script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}js/libs/modernizr-1.1.min.js"></script>
+{% endcompress %}
+
+{% block extrabody %}{% endblock %}
+<div id="fb-root"></div>
+<script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId={{ FACEBOOK_APP_ID }}";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+</body>
+</html>

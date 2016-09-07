@@ -1,0 +1,47 @@
+{% extends "gridder_base.html" %}
+
+{% block title %}Login | PDFGridder{% endblock %}
+
+{% block extrahead %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/login.css" type="text/css" charset="utf-8"/>
+{% endblock %}
+
+{% block extrabody %}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="options col-md-4">
+      <form action="." method="post" class="form-horizontal" role="form" accept-charset="utf-8">
+        <fieldset>
+          <legend>Login or <a href="{% url 'registration_register' %}">Signup</a></legend>
+          <div class="form-group {% if form.username.errors %}error{% endif %}">
+            <label class="col-sm-3 control-label" for="id_username">Username</label>
+            <div class="col-sm-7">
+              <input id="id_username" maxlength="30" name="username" type="text" class="form-control">
+              {% if form.username.errors %}<span class="help-inline">{% for error in form.username.errors %}{{error}} {% endfor %}</span>{% endif %}
+            </div>
+          </div>
+          <div class="form-group {% if form.password.errors %}error{% endif %}">
+            <label class="col-sm-3 control-label" for="id_password">Password</label>
+            <div class="col-sm-7">
+              <input id="id_password" name="password" type="password" autocomplete="off" class="form-control">
+              {% if form.password.errors %}<span class="help-inline">{% for error in form.password.errors %}{{error}} {% endfor %}</span>{% endif %}
+            </div>
+          </div>
+          {% csrf_token %}
+        </fieldset>
+        <div class="form-group">
+          <div class="col-sm-offset-3 col-sm-7">
+            <button type="submit" class="btn btn-primary required">Continue &rarr;</button>
+          </div>
+        </div>
+        <a href="{% url 'django.contrib.auth.views.password_reset' %}">Forgot your password?</a>
+      </form>
+    </div>
+    <div class="col-md-4">
+        {% include "registration/social_login.html" %}
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{
+"object_list":[
+{% for g in recents.object_list %}
+    {
+        "id": {{g.id}},
+        "name": "{{g.name}}",
+        "url": "{{g.get_params_url}}",
+        "created": "{% url 'edit_grid' g.id %}",
+        "created_human": "{{g.created|date:"F, jS Y" }}",
+        "summary": "{{g.summary}}",
+        "download": "{{g.get_absolute_url}}",
+        "star": {% if g.star %}true{% else %}false{% endif %}
+    }{% if not forloop.last %},{% endif %}
+    {% endfor %}
+],
+"has_next": {% if recent.has_next %}true{% else %}false{% endif %}
+}

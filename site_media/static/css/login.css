@@ -1,0 +1,17 @@
+.login_button {
+    display: block;
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    margin-bottom: 3px;
+}
+#facebook_login_button {
+    width: 194px;
+    height: 25px;
+    background: url(../img/connect_light_large_long.gif);
+}
+#twitter_login_button {
+    width: 151px;
+    height: 24px;
+    background: url(../img/Sign-in-with-Twitter-lighter.png);
+}

@@ -1,0 +1,35 @@
+{% if user.is_authenticated %}
+<div id="recents" class="grid_list">
+    <h3>Your grids</h3>
+    <ul id="grid_categories">
+        <li class="category selected"><a rel="hentry" href="#">All of your grids</a></li>
+        <li class="category"><a rel="starred" href="?show_favorites">★ Starred</a></li>
+    </ul>
+    <div class="wrapper">
+    <ul class="grids hfeed">
+        {% for g in object_list %}
+        <li id="row-grid-{{g.id}}" class="hentry {% if g.star %}starred{% endif %} {% ifequal g.id grid_id %}editing{% endifequal %}">
+            <div class="tools">
+                <a rel="{{g.id}}" class="star {% if g.star %}on{% else %}off{% endif %}" href="#" title="favorite">{% if g.star %}★{% else %}☆{% endif %}</a><a class="download" href="{{g.get_absolute_url}}" title="download">&darr;</a><a class="delete" href="#" rel="{{g.id}}" title="delete">&times;</a>
+            </div>
+            <div class="details">
+                <h5 class="entry-title"><a href="{% url 'edit_grid' g.id %}" title="edit this grid">{{g}}</a></h5>
+                <p class="entry-summary">{{g.summary}}</p>
+                <p class="published">created on {{g.created|date:"b, jS Y" }}.</p>
+            </div>
+        </li>
+        {% empty %}
+        <li class="empty">You haven’t created any grid, yet.</li>
+        {% endfor %}
+        <li class="empty"><a href="{% url 'auth_login' %}?next=/">Login</a> or <a href="{% url 'registration_register' %}">Signup</a> to save your grids</li>
+    </ul>
+    {% if recents.has_other_pages %}
+    <ul class="pagination">
+        {% if recents.has_next %}
+            <li class="next"><a href="?recents_page={{ recents.next_page_number }}">Load more&hellip;</a></li>
+        {% endif %}
+    </ul>
+    {% endif %}
+    </div>
+</div>
+{% endif %}

@@ -1,0 +1,23 @@
+.editTool {
+    font-size: 14px;
+    letter-spacing: 0;
+}
+#avatar {
+    display: block;
+    float: left;
+    margin-right: 20px;
+}
+#fullName {
+    position: relative;
+    top: -5px;
+}
+#bio {
+    font-style: italic;
+    margin-bottom: 16px;
+}
+#recents {
+    clear: left;
+}
+.vcard p {
+    margin-bottom: 0;
+}

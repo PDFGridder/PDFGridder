@@ -1,0 +1,23 @@
+#header {
+    border-bottom: 3px double  #cacaca;
+}
+#main p a {
+    text-decoration: underline !important;
+}
+#main p a:hover {
+    text-decoration: none !important;
+}
+hr {
+    border-bottom: 1px solid #CCC;
+}
+h1 a
+{
+    color: rgb(176, 196, 222);
+}
+h1 a:hover
+{
+    color: rgb(207, 228, 255);
+}
+#footer {
+    border-top: 1px solid #999;
+}

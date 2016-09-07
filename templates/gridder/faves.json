@@ -1,0 +1,14 @@
+[
+{% for g in faves %}
+{
+    "id": {{g.id}},
+    "name": "{{g}}",
+    "url": "{% url edit_grid g.id %}",
+    "created": "{{g.created}}",
+    "created_human": "{{g.created|date:"F, jS Y" }}",
+    "summary": "{{g.summary}}",
+    "download": "{{g.get_absolute_url}}",
+    "star": {% if g.star %}true{% else %}false{% endif %}
+}{% if not forloop.last %},{% endif %}
+{% endfor %}
+]

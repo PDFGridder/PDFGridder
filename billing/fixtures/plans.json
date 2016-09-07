@@ -1,0 +1,192 @@
+[
+{
+    "pk": 2, 
+    "model": "plans.plan", 
+    "fields": {
+        "available": true, 
+        "description": "", 
+        "created": "2014-06-19T10:12:09", 
+        "default": true, 
+        "customized": null, 
+        "visible": true, 
+        "url": "", 
+        "order": 0, 
+        "name": "Free"
+    }
+},
+{
+    "pk": 3, 
+    "model": "plans.plan", 
+    "fields": {
+        "available": true, 
+        "description": "", 
+        "created": "2014-06-19T10:29:47", 
+        "default": false, 
+        "customized": null, 
+        "visible": true, 
+        "url": "", 
+        "order": 3, 
+        "name": "Buckminster Fuller"
+    }
+},
+{
+    "pk": 4, 
+    "model": "plans.plan", 
+    "fields": {
+        "available": true, 
+        "description": "", 
+        "created": "2014-06-25T14:49:11", 
+        "default": false, 
+        "customized": null, 
+        "visible": true, 
+        "url": "", 
+        "order": 1, 
+        "name": "Bento"
+    }
+},
+{
+    "pk": 5, 
+    "model": "plans.plan", 
+    "fields": {
+        "available": true, 
+        "description": "", 
+        "created": "2014-06-25T14:55:14", 
+        "default": false, 
+        "customized": null, 
+        "visible": true, 
+        "url": "", 
+        "order": 2, 
+        "name": "Jan Tschichold"
+    }
+},
+{
+    "pk": 1, 
+    "model": "plans.pricing", 
+    "fields": {
+        "url": "", 
+        "name": "monthly", 
+        "period": 30
+    }
+},
+{
+    "pk": 2, 
+    "model": "plans.pricing", 
+    "fields": {
+        "url": "", 
+        "name": "yearly", 
+        "period": 365
+    }
+},
+{
+    "pk": 3, 
+    "model": "plans.pricing", 
+    "fields": {
+        "url": "", 
+        "name": "Free", 
+        "period": 0
+    }
+},
+{
+    "pk": 1, 
+    "model": "plans.quota", 
+    "fields": {
+        "description": "", 
+        "url": "", 
+        "name": "Grids Count", 
+        "codename": "MAX_GRIDS_COUNT", 
+        "order": 0, 
+        "unit": "grids", 
+        "is_boolean": false
+    }
+},
+{
+    "pk": 2, 
+    "model": "plans.planpricing", 
+    "fields": {
+        "price": "2.99", 
+        "plan": 3, 
+        "pricing": 1
+    }
+},
+{
+    "pk": 16, 
+    "model": "plans.planpricing", 
+    "fields": {
+        "price": "29.99", 
+        "plan": 3, 
+        "pricing": 2
+    }
+},
+{
+    "pk": 18, 
+    "model": "plans.planpricing", 
+    "fields": {
+        "price": "0.99", 
+        "plan": 4, 
+        "pricing": 1
+    }
+},
+{
+    "pk": 19, 
+    "model": "plans.planpricing", 
+    "fields": {
+        "price": "9.99", 
+        "plan": 4, 
+        "pricing": 2
+    }
+},
+{
+    "pk": 20, 
+    "model": "plans.planpricing", 
+    "fields": {
+        "price": "1.99", 
+        "plan": 5, 
+        "pricing": 1
+    }
+},
+{
+    "pk": 21, 
+    "model": "plans.planpricing", 
+    "fields": {
+        "price": "19.99", 
+        "plan": 5, 
+        "pricing": 2
+    }
+},
+{
+    "pk": 2, 
+    "model": "plans.planquota", 
+    "fields": {
+        "plan": 3, 
+        "value": null, 
+        "quota": 1
+    }
+},
+{
+    "pk": 3, 
+    "model": "plans.planquota", 
+    "fields": {
+        "plan": 4, 
+        "value": 20, 
+        "quota": 1
+    }
+},
+{
+    "pk": 4, 
+    "model": "plans.planquota", 
+    "fields": {
+        "plan": 5, 
+        "value": 40, 
+        "quota": 1
+    }
+},
+{
+    "pk": 5, 
+    "model": "plans.planquota", 
+    "fields": {
+        "plan": 2, 
+        "value": 5, 
+        "quota": 1
+    }
+}
+]

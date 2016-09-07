@@ -1,0 +1,23 @@
+{% extends "gridder_base.html" %}
+
+{% block title %}Edit Profile | PDFGridder{% endblock %}
+
+{% block extrahead %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/login.css" type="text/css" charset="utf-8"/>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <form action="." class="form-horizontal" method="post" accept-charset="utf-8">
+            <legend>Edit Profile</legend>
+    {% include "profiles/profile_form.html" %}
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-primary">Continue &rarr;</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

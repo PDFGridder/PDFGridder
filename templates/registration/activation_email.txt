@@ -1,0 +1,4 @@
+Thank you for registering on {{site.name}}
+
+You need to activate your profile at the following URL:
+https://{{site.domain}}/accounts/activate/{{ activation_key }}/

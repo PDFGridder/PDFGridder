@@ -1,0 +1,7 @@
+{% load gridder %}<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<idPkg:Spread xmlns:idPkg="http://ns.adobe.com/AdobeInDesign/idml/1.0/packaging" DOMVersion="7.5">
+	<Spread Self="uba" FlattenerOverride="Default" AllowPageShuffle="true" ItemTransform="1 0 0 1 0 0" ShowMasterItems="true" PageCount="1" BindingLocation="0" PageTransitionType="None" PageTransitionDirection="NotApplicable" PageTransitionDuration="Medium">
+		<Page Self="ubf" GeometricBounds="0 0 {{ object.height|normalize_unit:object.height_unit }} {{ object.width|normalize_unit:object.width_unit }}" Name="1" OverrideList="" AppliedMaster="uc1" MasterPageTransform="1 0 0 1 0 0" TabOrder="" GridStartingPoint="TopOutside" UseMasterGrid="true">
+		</Page>
+	</Spread>
+</idPkg:Spread>

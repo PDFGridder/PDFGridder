@@ -1,0 +1,178 @@
+{% extends "gridder_base.html" %}{% load humanize compress %}
+
+{% block title %}PDFGridder{% endblock %}
+
+{% block extrahead %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery-ui-1.7.1.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/farbtastic.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/gridder.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/grids_widget.css" type="text/css" media="screen" charset="utf-8" />
+    
+    <script type="text/javascript" charset="utf-8">
+    {% if object %}
+        window.object_id = {{ object.id }};
+    {% endif %}
+    {% if user.is_authenticated %}
+        window.user_id = {{ user.id }};
+    {% endif %}
+    </script>
+{% endblock %}
+
+
+{% block pagetitle %}
+    <h2 class="pageTitle">{% if user.is_authenticated %}<input type="text" id="id_pageTitle" name="pageTitle" value="{% if object %}{{object.name}}{% else %}Untitled{% endif %}" />{% else %}Create a Grid{% endif %}</h2>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+
+<div id="main" class="col-md-9">
+    <div id="canvas">
+        <div id="left_page" class="page"></div>
+        <div id="right_page" class="page"></div>
+    </div>
+</div>
+
+<div id="sidebar" class="col-md-3">
+{% if form.errors %}
+<p>Please review the following errors:</p>
+<div>{{ form.errors }}</div>
+{% endif %}
+<form action="{% url 'home' %}" method="post" enctype="application/x-www-form-urlencoded" id="gridder" class="form-horizontal">
+    <p id="units">set units <button type="button" class="btn btn-sm btn-default" id="metric" value="metric">metric</button> <button type="button" class="btn btn-sm btn-default" id="imperial" value="impoerial">imperial</button> <button type="button" class="btn btn-sm btn-default" id="pixels" value="pixels">pixels</button></p><hr />
+    <div id="paper">
+        <p>
+            <label for="paper_size">Paper size</label><select class="form-control input-sm" id="paper_size">
+                <option value="_custom">Custom</option>
+                <option value="A5">A5</option>
+                <option value="A4">A4</option>
+                <option value="A3">A3</option>
+                <option value="LETTER">Letter</option>
+                <option value="TABLOID">Tabloid</option>
+            </select>
+        </p>
+        <p class="measure" id="width">{{form.width.label_tag}}{{form.width}} {{form.width_unit}}</p>
+        <p class="measure" id="height">{{form.height.label_tag}}{{form.height}} {{form.height_unit}}</p>
+        <p class="option" id="is_spread"><label for="id_is_spread" class="checkbox">{{form.is_spread}} Facing pages</label></p>
+    </div>
+    <hr />
+    <div id="margins">
+        <p class="margin" id="margin_top">{{form.margin_top.label_tag}}{{form.margin_top}} {{form.margin_top_unit}}</p>
+        <p class="margin" id="margin_bottom">{{form.margin_bottom.label_tag}}{{form.margin_bottom}} {{form.margin_bottom_unit}}</p>
+        <p class="margin" id="margin_left">{{form.margin_left.label_tag}}{{form.margin_left}} {{form.margin_left_unit}}</p>
+        <p class="margin" id="margin_right">{{form.margin_right.label_tag}}{{form.margin_right}} {{form.margin_right_unit}}</p>
+    </div>
+    <hr />
+    <div id="columns_options">
+        <p class="increase" id="columns">{{form.columns.label_tag}}{{form.columns}}</p>
+        <p class="measure" id="columns_gutter"> <label for="id_columns_gutter">Gutter</label>{{form.columns_gutter}} {{form.columns_gutter_unit}}</p>
+
+        <p class="measure result control-group" id="columns_width">
+            <label for="id_cols_width">Width</label><input type="number" class="value form-control input-sm" name="columns_width" id="id_cols_width" value=""/>
+            <select id="id_cols_width_unit" class="units form-control input-sm">
+                <option value="in">inches</option>
+                <option value="mm" selected="selected">millimeters</option>
+                <option value="px">pixels</option>
+            </select>
+        </p>
+    </div>
+    <hr />
+    <p class="measure" id="baseline">{{form.baseline.label_tag}}{{form.baseline}} {{form.baseline_unit}}</p>
+    <hr />
+    <a class="options" id="options_colors" href="#colors"><span class="ui-icon ui-icon-triangle-1-e">open </span>Colors</a>
+    <div id="colors" class="folding">
+        <div class="picker" id="columns_color_opacity_picker">
+            <div class="color_picker" id="columns_colorpicker"></div>
+            <div class="opacity_slider" id="columns_opacity_slider"></div>
+            <p>{{form.columns_color.label_tag}}{{form.columns_color}}<label for="id_columns_opacity">opacity</label>{{form.columns_opacity}}</p>
+        </div>
+        <div class="picker" id="baseline_color_opacity_picker">
+            <div class="color_picker" id="baseline_colorpicker"></div>
+            <div class="opacity_slider" id="baseline_opacity_slider"></div>
+            <p>{{form.baseline_color.label_tag}}{{form.baseline_color}}<label for="id_baseline_opacity">opacity</label>{{form.baseline_opacity}}</p>
+        </div>
+    </div>
+    <hr />
+    {% csrf_token %}
+
+    <button type="button" name="" class="btn btn-default" id="toggleDownloadOptions">Download…</button>
+    <div id="downloadOptions">
+        <p><button type="button" class="btn btn-xs btn-default" name="submit" id="id_submit">Adobe PDF</button></p>
+        <p><button type="button" class="btn btn-xs btn-default" name="downloadIDML" id="id_downloadIDML">InDesign (.IDML)</button></p>
+        <p><button type="button" class="btn btn-xs btn-default" name="downloadINX" id="id_downloadINX">InDesign (.INX)</button></p>
+        <p><button type="button" class="btn btn-xs btn-default" name="downloadCSS" id="id_downloadCSS">CSS</button></p>
+    </div>
+
+    {% if user.is_authenticated %}
+    <button type="button" class="btn btn-default" name="save" id="id_save">Save</button>
+    <button type="button" class="btn btn-default" name="save_as" id="id_save_as">Save as…</button>
+    <div id="save">
+        <p>{{form.name.label_tag}}{{form.name}}</p>
+        <p><label for="id_description">Description:</label></p>
+        <textarea id="id_description" rows="10" cols="30" class="span3" name="description"></textarea>
+        <hr />
+        <button type="button" name="save_as_confirm" class="btn-sm btn-primary" id="id_save_as_confirm">Save as</button>
+    </div>
+    {% endif %}
+    {{ form.message }}
+</form>
+{% with recents.object_list as object_list %}
+{% include "gridder/grids_widget.html" %}
+{% endwith %}
+</div>
+</div>
+{% endblock %}
+
+{% block extrabody %}
+
+     <script type="text/javascript" charset="utf-8" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+
+     <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}js/libs/master_raphael-min.js"></script>
+     {% compress js %}
+     <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}js/libs/farbtastic-min.js"></script>
+     <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}js/libs/date.js"></script>
+     <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}js/libs/increase.js"></script>
+     
+     <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}js/libs/underscore-min.js"></script>
+     <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}js/libs/json2.js"></script>
+     <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}js/libs/backbone-min.js"></script>
+     <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}js/libs/backbone_tastypie.js"></script>
+
+     <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}js/constants.js"></script>
+     <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}js/cache.js"></script>
+
+
+     <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}js/routers/AppRouter.js"></script>
+     <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}js/models/Grid.js"></script>
+     <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}js/collections/GridCollection.js"></script>
+
+     <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}js/views/GenericView.js"></script>
+     <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}js/views/GridView.js"></script>
+
+     <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}js/views/GridRowView.js"></script>
+     <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}js/views/GridListView.js"></script>
+
+     <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}js/views/TitleView.js"></script>
+     <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}js/views/ValueView.js"></script>
+     <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}js/views/UnitView.js"></script>
+     <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}js/views/IncreaseView.js"></script>
+     <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}js/views/MeasureView.js"></script>
+     <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}js/views/MarginView.js"></script>
+     <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}js/views/ColorView.js"></script>
+     <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}js/views/OpacityView.js"></script>
+     <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}js/views/ColorPickerView.js"></script>
+     <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}js/views/OptionView.js"></script>
+     <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}js/views/ControlsView.js"></script>
+     <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}js/views/AppView.js"></script>
+
+    {% endcompress %}
+
+     <script type="text/javascript" charset="utf-8">
+         $(function() {
+             window.collection = new GridCollection();
+             window.router = new AppRouter({root: "/gridder/"});
+             Backbone.history.start({pushState: true, root: "/gridder/"});
+         });
+     </script>
+{% endblock %}
+

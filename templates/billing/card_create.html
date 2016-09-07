@@ -1,0 +1,35 @@
+{% extends "gridder_base.html" %}
+{% load i18n %}
+
+{% block title %}Create Card | PDFGridder{% endblock %}
+
+{% block extrahead %}
+<link href="{{ STATIC_URL }}css/stripe/themes/stripe.css" rel="stylesheet" type="text/css">
+<script id="tmpl-card" type="text/template">
+{% include "billing/card.tmpl" %}
+</script>
+{% endblock %}
+
+{% block extrabody %}
+<script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}js/libs/underscore-min.js"></script>
+<script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.8.1/jquery.validate.min.js"></script>
+<script src="{{ STATIC_URL }}js/libs/stripe/tag.js"></script>
+{% endblock %}
+
+{% block content %}
+<form action="" method="post">{% csrf_token %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <payment key="{{ STRIPE_PUBLISHABLE_KEY }}"></payment>
+        </div>
+    </div>
+    <div class="row">&nbsp;</div>
+    <div class="row">
+        <div class="col-md-12">
+            <p><button class="submit btn btn-primary" type="submit">Save Card</button></p>
+       </div>
+    </div>
+    </form>
+</div>
+{% endblock %}

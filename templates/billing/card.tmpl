@@ -1,0 +1,53 @@
+<div class="payment">
+  <span class="message"></span>
+
+  <div class="number">
+    <label for="paymentNumber">Card number*</label>
+    <input type="tel" id="paymentNumber" placeholder="4242 4242 4242 4242" required autofocus>
+  </div>
+
+  <div class="expiry">
+    <label for="paymentExpiryMonth">Expiry date* <em>(mm/yy)</em></label>
+    <input class="expiryMonth" type="tel" id="paymentExpiryMonth" placeholder="mm" required>
+    <input class="expiryYear" type="tel" id="paymentExpiryYear" placeholder="yy" required>
+  </div>
+
+  <% if (options.cvc) { %>
+  <div class="cvc">
+    <label for="paymentCVC">Security code*</label>
+    <input type="tel" id="paymentCVC" placeholder="123" maxlength="4" required>
+  </div>
+  <% } %>
+</div>
+
+<div class="additional-info">
+  <label>Card Owner Info <small>(optional)</small></label>
+
+  <div class="name">
+    <input type="text" id="name" placeholder="John Smith" value="{{ user.billinginfo.name }}">
+    </div>
+
+  <div class="address_line1">
+    <input type="text" id="address_line1" placeholder="123 Main St" value="{{ user.billinginfo.street }}">
+    </div>
+
+  <div class="address_line2">
+    <input type="text" id="address_line2" placeholder="Apt. 12">
+    </div>
+
+  <div class="address">
+    <span class="city">  <input type="text" id="address_city" placeholder="Palo Alto" value="{{ user.billinginfo.city }}">
+    </span>
+
+  <span class="state">
+    <input type="text" id="address_state" placeholder="CA">
+    </span>
+
+  <span class="zip">
+    <input type="text" id="address_zip" placeholder="94301" value="{{ user.billinginfo.zipcode }}"></span>
+    </div>
+
+  <div class="address_country">
+     <input type="text" id="address_country" placeholder="USA" value="{{ user.billinginfo.country }}">
+  </div>
+</div>

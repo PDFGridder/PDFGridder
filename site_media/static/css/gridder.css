@@ -1,0 +1,198 @@
+.pageTitle {
+    overflow: hidden;
+}
+.pageTitle input {
+    font-size: inherit;
+    letter-spacing: inherit;
+    line-height: inherit;
+    font-weight: inherit;
+    position: inherit;
+    top: inherit;
+    height: auto;
+    border: 4px inset;
+    margin-top: 12px;
+    width: 598px;
+    display: block;
+    float: left;
+}
+.pageTitle .lock {
+    background: url('../img/lock_big.png') no-repeat;
+    width: 40px;
+    height: 60px;
+    display: block;
+    text-indent: -9999px;
+    float: left;
+    margin-top: 7px;
+    margin-left: 10px;
+}
+.pageTitle .lock.public {
+    background-position: top left;
+}
+.pageTitle .lock.public:hover {
+    background-position: bottom left;
+}
+.pageTitle .lock.private {
+    background-position: top right;
+}
+.pageTitle .lock.private:hover {
+    background-position: bottom right;
+}
+
+#sidebar p {
+    padding: 3px;
+    margin-bottom: 0;
+}
+#units {
+    text-align: right;
+}
+#units input {
+    background: #F0F0F0;
+}
+#units input:hover {
+    background: #ccc;
+    cursor: pointer;
+}
+form#gridder {
+    margin-bottom: 20px;
+}
+hr {
+    margin: 10px 0;
+    clear: both;
+}
+.errorMessage {
+    display: block;
+    color: #ee6666;
+    font-size: 1.3em;
+    display: none;
+}
+#id_cols_width.integer {
+    color: mediumseagreen;
+}
+#sidebar label {
+    display: inline-block;
+    width: 5em;
+    margin-right: 5px;
+    position: relative;
+    font-weight: normal !important;
+}
+#sidebar .option label {
+    width: auto;
+    float: none;
+}
+#sidebar input.value {
+    width: 5em;
+    display: inline !important;
+    text-align: right;
+    padding: 1px 0;
+    margin-right: 0;
+}
+#id_name {
+    width: 164px !important;
+    text-align: left !important;
+}
+#id_description {
+    margin-left: 3px;
+    width: 272px;
+    height: 106px;
+}
+.options {
+    display: block;
+}
+.options .ui-icon {
+    float: left;
+}
+#sidebar select {
+    display: inline;
+    width: 100px;
+}
+#columns .increase_widget {
+    display: inline-block;
+    position: relative;
+    top: 2px;
+}
+#columns .increase_widget .ui-icon {
+    height: 10px;
+}
+#columns .increase_widget .ui-icon-triangle-1-n {
+    background-position:0 -20px;
+}
+#columns .increase_widget .ui-icon-triangle-1-s {
+}
+.state {
+    border: none !important;
+}
+.folding {
+    display: none;
+}
+.folding.opened {
+    display: block;
+}
+.picker {
+    padding: 15px 0;
+}
+#colors p {
+    clear: both;
+    padding: 10px 10px;
+}
+#colors label {
+    float: none;
+    display: inline;
+}
+.color_picker, .opacity_slider {
+    float: left;
+}
+.color_picker {
+    background: url('../img/jquery-ui/ui-bg_diagonals-thick_20_666666_40x40.png');
+}
+.opacity_slider {
+    height: 195px;
+    width: 0.9em;
+    margin-left: 4px;
+    overflow: visible;
+}
+.ui-slider-vertical .ui-slider-handle {
+    height:0.5em;
+    margin-bottom:-0.3em;
+}
+
+#colors #id_columns_color,
+#colors #id_baseline_color {
+    width: 5em;
+    text-align: left;
+    margin-right: 5px;
+}
+#canvas .page {
+    border: 1px solid #ccc;
+    float: left;
+}
+#canvas #left_page {
+    display: none;
+}
+#canvas #left_page.spread {
+    display: block;
+}
+#downloadOptions {
+    display: none;
+    position: absolute;
+    box-shadow: 2px 2px 2px #ccc;
+    border: 1px solid #ccc;
+    background-color: rgba(255,255,255, 0.92);
+    padding: 10px;
+}
+#downloadOptions input
+{
+    display: block;
+    width: 100%;
+    height: auto;
+    padding: 3px 5px;
+}
+#id_save_as.open {
+    background-color: #d7d7d7;
+}
+#save {
+    display: none;
+    padding-top: 15px;
+}
+#id_save_as_confirm {
+    float: right;
+}

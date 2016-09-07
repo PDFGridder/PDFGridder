@@ -1,0 +1,13 @@
+{% load gridder %}<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<idPkg:MasterSpread xmlns:idPkg="http://ns.adobe.com/AdobeInDesign/idml/1.0/packaging" DOMVersion="7.5">
+	<MasterSpread Self="uc1" ItemTransform="1 0 0 1 0 0" OverriddenPageItemProps="" Name="A-Master" NamePrefix="A" BaseName="Master" ShowMasterItems="true" PageCount="{% if object.is_spread %}2{% else %}1{% endif %}">
+		{% if object.is_spread %}
+		<Page Self="uc6" GeometricBounds="0 0 {{ object.height|normalize_unit:object.height_unit }} {{ object.width|normalize_unit:object.width_unit }}" Name="A" OverrideList="" AppliedMaster="n" MasterPageTransform="1 0 0 1 0 0" TabOrder="" GridStartingPoint="TopOutside" UseMasterGrid="true">
+			<MarginPreference ColumnCount="{{object.columns}}" ColumnGutter="{{ object.columns_gutter|normalize_unit:object.columns_gutter_unit}}" Top="{{ object.margin_top|normalize_unit:object.margin_top_unit}}" Bottom="{{ object.margin_bottom|normalize_unit:object.margin_bottom_unit}}" Left="{{ object.margin_left|normalize_unit:object.margin_left_unit}}" Right="{{ object.margin_right|normalize_unit:object.margin_right_unit}}" ColumnDirection="Horizontal" />
+		</Page>
+		{% endif %}
+		<Page Self="uc7" GeometricBounds="0 0 {{ object.height|normalize_unit:object.height_unit }} {{ object.width|normalize_unit:object.width_unit }}" Name="A" OverrideList="" AppliedMaster="n" MasterPageTransform="1 0 0 1 0 0" TabOrder="" GridStartingPoint="TopOutside" UseMasterGrid="true">
+			<MarginPreference ColumnCount="{{object.columns}}" ColumnGutter="{{ object.columns_gutter|normalize_unit:object.columns_gutter_unit}}" Top="{{ object.margin_top|normalize_unit:object.margin_top_unit}}" Bottom="{{ object.margin_bottom|normalize_unit:object.margin_bottom_unit}}" Left="{{ object.margin_left|normalize_unit:object.margin_left_unit}}" Right="{{ object.margin_right|normalize_unit:object.margin_right_unit}}" ColumnDirection="Horizontal" />
+		</Page>
+	</MasterSpread>
+</idPkg:MasterSpread>

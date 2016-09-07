@@ -1,0 +1,104 @@
+#recents
+{
+    margin-bottom: 20px;
+}
+#grid_categories {
+    overflow: hidden;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+#grid_categories .category {
+    float: left;
+    border: 1px solid #ccc;
+    border-bottom: none;
+    margin-right: -1px;
+}
+#grid_categories .category a {
+    display: block;
+    padding: 0 5px;
+}
+#grid_categories .category.selected {
+    font-weight: bold;
+    background: #fafafa;
+    border-bottom: 1px solid #fafafa;
+}
+
+#recents .wrapper
+{
+    max-height: 240px;
+    overflow: auto;
+    background: #fafafa;
+    border: 1px solid #ccc;
+    margin-top: -1px;
+}
+.grids {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    margin-bottom: 5px;
+}
+.grids .empty,
+.grids .hentry {
+    padding: 5px;
+    overflow: hidden;
+}
+.grids .hentry {
+    padding: 0 5px 16px;
+    overflow: hidden;
+    font-size: 12px;
+    background-color: white;
+}
+.hentry:nth-child(even) {
+    background-color: #f3f3f3;
+}
+.hentry.modified {
+    background-color: #d3d3d3;
+}
+.hentry.active {
+    border: 1px dashed red;
+}
+.grids .tools {
+    float: left;
+    font-family: "Hiragino Kaku Gothic Pro", "Osaka", "Zapf Dingbats";
+    margin-right: 3px;
+}
+.grids .details {
+    float: left;
+    width: 157px;
+    overflow: visible !important;
+}
+
+.grids .entry-title,
+.grids .entry-summary,
+.grids .published {
+    font-size: 12px;
+    padding: 0 !important;
+}
+.grids .entry-title
+{
+    font-weight: bold;
+    font-style: normal;
+}
+.grids .entry-summary {
+    white-space: nowrap;
+}
+.grids .published {
+    font-style: italic;
+}
+.delete {
+    font-weight: normal !important;
+    font-size: 14px !important;
+}
+.just_added {
+    display: none;
+    background-color: yellow;
+}
+.pagination {
+    padding: 0;
+    list-style-type: none;
+    margin-bottom: 5px;
+    text-align: center;
+    font-style: italic;
+}

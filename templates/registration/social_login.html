@@ -1,0 +1,17 @@
+<form action="{% url 'socialauth_begin' 'openid' %}" method="POST">
+<fieldset>
+  <legend>Or use one of those providers</legend>
+  <div class="control-group">
+    <div class="controls">
+      <a class="login_button" id="facebook_login_button" href="{% url 'socialauth_begin' 'facebook' %}">Connect with Facebook</a>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <div class="controls">
+      <a class="login_button" id="twitter_login_button" href="{% url 'socialauth_begin' 'twitter' %}">Sign in with Twitter</a>
+    </div>
+  </div>
+
+</fieldset>
+</form>

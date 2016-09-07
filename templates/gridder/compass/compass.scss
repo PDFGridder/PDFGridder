@@ -1,0 +1,24 @@
+{% load gridder %}
+@import "compass/layout/grid-background";
+
+$grid-background-total-columns: {{object.columns}};
+$grid-background-gutter-width: {{ object.columns_gutter|normalize_unit:object.columns_gutter_unit}}px;
+$grid-background-column-width: {{ object.columns_width }}px;
+$grid-background-baseline-height: {{ object.baseline|normalize_unit:object.baseline_unit}}px;
+$grid-background-offset: {{ object.margin_left|normalize_unit:object.margin_left_unit}}px;
+
+$grid-background-baseline-color: rgba({{ object.baseline_rgba|join:"," }});
+$grid-background-column-color: rgba({{ object.columns_rgba|join:"," }});
+
+body {
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+.grid {
+    @include grid-background();
+    width: {{ object.width|normalize_unit:object.width_unit }}px;
+    height: {{ object.height|normalize_unit:object.height_unit }}px;
+    margin: 0 auto;
+    text-align: left;
+}

@@ -1,0 +1,29 @@
+{% load gridder %}<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?aid style="33" type="document" DOMVersion="5.0" readerVersion="4.0" featureSet="257" product="5.0(682)" ?>
+<docu InLi="x_0" zero="x_2_U_0_U_0" pacl="o_u9e" DCcp="c_U.S. Web Coated (SWOP) v2" DCrp="c_sRGB IEC61966-2.1" DCci="e_RIcs" DCbi="e_RIcs" DCii="e_RIcs" CSrp="e_CPpp" CScp="e_CPpd" DCsa="b_f" Self="rc_d">
+	<!-- baseline -->
+	<grdp gsho="b_f" grto="b_f" grdc="e_iLgr" GrDb="b_t" blsn="b_t" blst="U_0" bldv="U_{{ object.baseline|normalize_unit:object.baseline_unit}}" blvl="D_75" blcl="e_iLbl" grlo="e_ENgm" Self="rc_dgrdp1"/>
+	<!-- /baseline -->
+	<!-- layer -->
+	<layr pnam="c_Layer 1" pvis="b_t" plck="b_f" lcol="e_iLbl" iwrp="b_f" sogd="b_t" lkgd="b_f" uilr="b_t" exlr="b_t" prta="b_t" Self="rc_ua9"/>
+	<!-- /layer -->
+	    {% if object.is_spread %}
+	<mspr pnam="rc_A-Master" npfx="c_A" nmbs="c_Master" smsi="b_t" PagC="l_2" pmas="o_n" ovpp="x_0" Self="rc_u9f">
+		<page pnam="rc_A" SnAd="ro_n" DCof="rl_ffffffff" pbnd="rx_4_U_-{{ object.height|normalize_unit:object.height_unit }}_U_-{{ object.width|normalize_unit:object.width_unit }}_U_{{ object.height|normalize_unit:object.height_unit }}_U_0" pgTs="o_u9b" PgSd="re_lfth" pmas="o_n" mpgs="ry_0" ovrl="x_0" TOpp="y_0" Jgsp="e_gsto" Jumg="b_t" Self="rc_ua4">
+			<imgp colc="l_{{ object.columns }}" colg="U_{{ object.columns_gutter|normalize_unit:object.columns_gutter_unit}}" mart="U_{{ object.margin_top|normalize_unit:object.margin_top_unit}}" marb="U_{{ object.margin_bottom|normalize_unit:object.margin_bottom_unit}}" marl="U_{{ object.margin_left|normalize_unit:object.margin_left_unit}}" marr="U_{{ object.margin_right|normalize_unit:object.margin_right_unit}}" cold="e_horz" hccl="rb_f" Self="rc_ua4imgp1"/>
+		</page>
+		<page pnam="rc_A" SnAd="ro_n" DCof="rl_ffffffff" pbnd="rx_4_U_-{{ object.height|normalize_unit:object.height_unit }}_U_0_U_{{ object.height|normalize_unit:object.height_unit }}_U_{{ object.width|normalize_unit:object.width_unit }}" pgTs="o_u9b" PgSd="re_rgth" pmas="o_n" mpgs="ry_0" ovrl="x_0" TOpp="y_0" Jgsp="e_gsto" Jumg="b_t" Self="rc_ua5">
+			<imgp colc="l_{{ object.columns }}" colg="U_{{ object.columns_gutter|normalize_unit:object.columns_gutter_unit}}" mart="U_{{ object.margin_top|normalize_unit:object.margin_top_unit}}" marb="U_{{ object.margin_bottom|normalize_unit:object.margin_bottom_unit}}" marl="U_{{ object.margin_left|normalize_unit:object.margin_left_unit}}" marr="U_{{ object.margin_right|normalize_unit:object.margin_right_unit}}" cold="e_horz" hccl="rb_f" Self="rc_ua5imgp1"/>
+		</page>
+	</mspr>
+		{% else %}
+	<mspr pnam="rc_A-Master" npfx="c_A" nmbs="c_Master" smsi="b_t" PagC="l_1" pmas="o_n" ovpp="x_0" Self="rc_u9f">
+		<page pnam="rc_A" SnAd="ro_n" DCof="rl_ffffffff" pbnd="rx_4_U_-{{ object.height|normalize_unit:object.height_unit }}_U_-{{ object.width|normalize_unit:object.width_unit }}_U_{{ object.height|normalize_unit:object.height_unit }}_U_{{ object.width|normalize_unit:object.width_unit }}" pgTs="o_u9b" PgSd="re_usex" pmas="o_n" mpgs="ry_0" ovrl="x_0" TOpp="y_0" Jgsp="e_gsto" Jumg="b_t" Self="rc_ua4">
+			<imgp colc="l_{{ object.columns }}" colg="U_{{ object.columns_gutter|normalize_unit:object.columns_gutter_unit}}" mart="U_{{ object.margin_top|normalize_unit:object.margin_top_unit}}" marb="U_{{ object.margin_bottom|normalize_unit:object.margin_bottom_unit}}" marl="U_{{ object.margin_left|normalize_unit:object.margin_left_unit}}" marr="U_{{ object.margin_right|normalize_unit:object.margin_right_unit}}" cold="e_horz" hccl="rb_f" Self="rc_ua4imgp1"/>
+		</page>
+	</mspr>
+		{% endif %}
+	<!-- this element is required, or indesign will crash -->
+	<sprd fsSo="e_Dflt" smsi="b_t" ilnd="b_f" PagC="l_1" BnLc="l_0" Shfl="b_t" pmas="o_u9f" Self="rc_ua4">
+	</sprd>
+</docu>

@@ -1,0 +1,149 @@
+    {% if logo_url %}
+        <img src="{{ logo_url }}" alt="company logo">
+    {% endif %}
+
+    <div style="float:right; text-align: right;">
+        <h1>
+             <span class="en">{% if invoice.type == invoice.INVOICE_TYPES.INVOICE %}Invoice ID{% endif %}{% if invoice.type == invoice.INVOICE_TYPES.PROFORMA %}Order confirmation ID{% endif %}{% if invoice.type == invoice.INVOICE_TYPES.DUPLICATE %}Invoice (duplicate) ID{% endif %}</span> <span id="full_number">{{ invoice.full_number }}</span>
+        </h1>
+        <h2>{% if not copy %}ORIGINAL{% else %}DUPLICATE{% endif %}</h2>
+        <p><span class="en">Issued</span> {{ invoice.issued|date:"Y-m-d" }}</p>
+        {% if invoice.type != invoice.INVOICE_TYPES.PROFORMA %}
+        <p><span class="en">Date of order</span> {{ invoice.selling_date|date:"Y-m-d" }}</p>
+        {% endif %}
+    </div>
+
+    <table style="width: 100%; margin-bottom: 40px; font-size: 12px;" >
+        <tr>
+            <td style="width: 50%;" id="billing">
+            </td>
+            <td style="width: 50%; padding-right: 4em; font-weight: bold; font-size: 15px;" id="shipping">
+                <strong> <label><span class="en">Shipping address</span></label></strong><br><br>
+
+                {{ invoice.shipping_name }}<br>
+                {{ invoice.shipping_street }}<br>
+                {{ invoice.shipping_zipcode }} {{ invoice.shipping_city }}<br>
+                {{ invoice.buyer_country.code }} - {{ invoice.buyer_country.name }}
+
+
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 50%;  vertical-align: top;">
+
+                <p><strong><span class="en">Seller</span></strong><br><br>
+                {{ invoice.issuer_name }}<br>
+                {{ invoice.issuer_street }}<br>
+                {{ invoice.issuer_zipcode }} {{ invoice.issuer_city}}<br>
+                {{ invoice.issuer_country.code }} - {{ invoice.issuer_country.name }}<br/>
+                <strong><span class="en">VAT ID</span></strong> 
+                {{ invoice.issuer_tax_number|default:"n/a" }}</p>
+
+            </td>
+            <td style="width: 50%;  vertical-align: top;">
+
+                <strong><span class="en">Buyer</span></label></strong><br><br>
+                {{ invoice.buyer_name }}<br>
+                {{ invoice.buyer_street }}<br>
+                {{ invoice.buyer_zipcode }} {{ invoice.buyer_city }}<br>
+                {{ invoice.buyer_country.code }} - {{ invoice.buyer_country.name }}
+
+                {%  if invoice.buyer_tax_number %}
+                    <p>
+
+                        <label><span class="en">VAT ID</span></label> {{ invoice.buyer_tax_number }}
+
+                    </p>
+                {% endif %}
+                <br>
+            </td>
+        </tr>
+    </table>
+
+    <table style="margin-bottom: 40px; width: 100%;" id="items">
+        <thead>
+        <tr>
+
+            <td>
+                <span class="en">Description</span>
+
+            </td>
+
+            <td>
+                <span class="en">Unit&nbsp;price</span>
+
+            </td>
+            <td>
+
+                <span class="en">Qty.</span>
+            </td>
+            {% if invoice.rebate %}
+
+                <td>
+                    <span class="en">Rebate</span>
+
+                </td>
+            {%  endif %}
+            <td>
+                <span class="en">Subtotal</span>
+            </td>
+            <td style="width: 3%;">
+                <span class="en">TAX</span>
+            </td>
+            <td>
+                <span class="en">TAX/VAT&nbsp;Amount</span>
+            </td>
+            <td style="width: 8%;">
+                <span class="en">Subtotal&nbsp;with&nbsp;TAX/VAT</span>
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="center">{{ invoice.item_description }}</td>
+            <td class="number">{{ invoice.unit_price_net|floatformat:2 }}&nbsp;{{ invoice.currency }}</td>
+            <td class="center">{{ invoice.quantity }}</td>
+
+            {% if invoice.rebate %}
+                <td class="number">{{ invoice.rebate|floatformat:2 }}&nbsp;%</td>
+            {%  endif %}
+            <td class="number">{{ invoice.total_net|floatformat:2 }}&nbsp;{{ invoice.currency }}</td>
+            <td class="number">{% if invoice.tax != None %}{{ invoice.tax|floatformat:2 }}&nbsp;%{% else %}<span class="en">n/a</span>{% endif %}</td>
+            <td class="number">{% if invoice.tax_total != None %}{{ invoice.tax_total|floatformat:2 }}&nbsp;{{ invoice.currency }}{% else %}<span class="en">n/a</span>{% endif %}</td>
+            <td class="number">{{ invoice.total|floatformat:2 }}&nbsp;{{ invoice.currency }}</td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="{% if invoice.rebate %}4{% else %}3{%  endif %}" style="background-color: #EEE;"><label><span class="en">Total</span></label>  </td>
+            <td>{{ invoice.total_net|floatformat:2 }}&nbsp;{{ invoice.currency }}</td>
+            <td>{% if invoice.tax != None %}{{ invoice.tax|floatformat:2 }}&nbsp;%{% else %}<span class="en">n/a</span>{% endif %}</td>
+            <td>{% if invoice.tax_total != None %}{{ invoice.tax_total|floatformat:2 }}&nbsp;{{ invoice.currency }}{% else %}<span class="en">n/a</span>{% endif %}</td>
+            <td>{{ invoice.total|floatformat:2 }}&nbsp;{{ invoice.currency }}</td>
+        </tr>
+        </tfoot>
+    </table>
+    <div style="width: 100%;">
+
+        {% if invoice.type != invoice.INVOICE_TYPES.PROFORMA %}
+            <strong><span class="en">Payment</span></strong>  electronic payment<br><br>
+        {% endif %}
+
+        {% if invoice.type != invoice.INVOICE_TYPES.PROFORMA %}
+            <strong><span class="en">Paid</span></strong>
+            {{ invoice.payment_date|date:"Y-m-d" }}
+
+        {% endif %}
+
+        <br><br>
+        <hr>
+
+        {% if invoice.type == invoice.INVOICE_TYPES.PROFORMA %}<p><span class="en">This document <strong>is not</strong> an invoice.</span></p> {% endif %}
+
+        {% if invoice.tax == None and invoice.is_UE_customer %}
+        <p>
+            <span class="en">-Reverse charge.</span>
+        </p>
+        {% endif %}
+
+    </div>

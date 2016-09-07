@@ -1,0 +1,30 @@
+{% extends "gridder_base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+    {% if error %}
+        <p>Your session timed out. Please try again.</p>
+    {% else %}
+    <form action="." class="form-horizontal" method="post" accept-charset="utf-8">
+        <fieldset>
+            <legend>Complete your profile</legend>
+              <div class="form-group {% if form.email.errors %}error{% endif %}">
+                <label class="control-label col-sm-2" for="id_email">Email address</label>
+                <div class="col-sm-3">
+                    <input type="email" class="required form-control" name="email" id="id_email">
+                    {% if form.email.errors %}<span class="help-inline error">{% for error in form.email.errors %}{{error}} {% endfor %}</span>{% endif %}
+                </div>
+            </div>
+            {% csrf_token %}
+        </fieldset>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-3">
+                <input type="submit" class="btn btn-primary" value="Save" />
+            </div>
+        </div>
+    </form>
+    {% endif %}
+    </div>
+</div>
+{% endblock %}

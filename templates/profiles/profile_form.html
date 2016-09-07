@@ -1,0 +1,55 @@
+<div class="form-group">
+    <label class="col-sm-2 control-label" for="id_upload_avatar">Password</label>
+    <div class="col-sm-3">
+        <a href="{% url 'password_change' %}" class="btn btn-default">Change Password</a>
+    </div>
+</div>
+
+<div class="form-group {% if form.upload_avatar.errors %}error{% endif %}">
+    <label class="col-sm-2 control-label" for="id_upload_avatar">Upload avatar</label>
+    <div class="col-sm-3">
+        <input id="id_upload_avatar" name="upload_avatar" type="file" class="form-control">
+        {% if form.upload_avatar.errors %}<span class="help-inline error">{% for error in form.upload_avatar.errors %}{{error}} {% endfor %}</span>{% endif %}
+    </div>
+</div>
+<div class="form-group {% if form.full_name.errors %}error{% endif %}">
+    <label class="col-sm-2 control-label" for="id_full_name">Full name</label>
+    <div class="col-sm-3">
+        <input id="id_full_name" maxlength="200" name="full_name" type="text" value="{{ form.initial.full_name}}" class="form-control">
+        {% if form.full_name.errors %}<span class="help-inline error">{% for error in form.full_name.errors %}{{error}} {% endfor %}</span>{% endif %}
+    </div>
+</div>
+<div class="form-group {% if form.email.errors %}error{% endif %}">
+    <label class="col-sm-2 control-label" for="id_email">Email</label>
+    <div class="col-sm-3">
+        <input id="id_email" maxlength="100" name="email" type="email" value="{{form.initial.email}}" class="form-control">
+        {% if form.email.errors %}<span class="help-inline error">{% for error in form.email.errors %}{{error}} {% endfor %}</span>{% endif %}
+    </div>
+</div>
+<div class="form-group {% if form.bio.errors %}error{% endif %}">
+    <label class="col-sm-2 control-label" for="id_bio">Bio</label>
+    <div class="col-sm-3">
+        <input id="id_bio" maxlength="500" name="bio" type="text" class="form-control" value="{{form.initial.bio}}">
+        {% if form.bio.errors %}<span class="help-inline error">{% for error in form.bio.errors %}{{error}} {% endfor %}</span>{% endif %}
+    </div>
+</div>
+<div class="form-group {% if form.city.errors %}error{% endif %}">
+    <label class="col-sm-2 control-label" for="id_city">City</label>
+    <div class="col-sm-3">
+        <input id="id_city" maxlength="100" name="city" type="text" value="{{form.initial.city}}" class="form-control">
+        {% if form.city.errors %}<span class="help-inline error">{% for error in form.city.errors %}{{error}} {% endfor %}</span>{% endif %}
+    </div>
+</div>
+<div class="form-group {% if form.country.errors %}error{% endif %}">
+    <label class="col-sm-2 control-label" for="id_country">Country</label>
+    <div class="col-sm-3">
+        <select id="id_country" name="country" class="form-control">
+            {% for id, name in form.country.field.choices %}
+            <option value="{{id}}" {% if id == form.initial.country %}selected{% endif %}>{{name}}</option>
+            {% endfor %}
+        </select>
+        {% if form.country.errors %}<span class="help-inline error">{% for error in form.country.errors %}{{error}} {% endfor %}</span>{% endif %}
+    </div>
+</div>
+<input type="hidden" name="next" value="{{ next }}" />
+{% csrf_token %}

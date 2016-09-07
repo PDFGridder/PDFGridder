@@ -1,0 +1,130 @@
+{% extends "gridder_base.html" %}
+{% load i18n %}
+
+{% block title %}Your Profile | PDFGridder{% endblock %}
+
+{% load compress avatar_tags %}
+{% block extrahead %}
+    {% compress css %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/profile.css" type="text/css" charset="utf-8"/>
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/grids_widget.css" type="text/css" charset="utf-8"/>
+    {% endcompress %}
+{% endblock %}
+
+
+{% block content %}
+
+{% ifequal user profile.user %}
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#public" data-toggle="tab">Public info</a></li>
+  <li><a href="#billing" data-toggle="tab">Billing info</a></li>
+  <li><a href="#grids" data-toggle="tab">Your grids</a></li>
+</ul>
+{% endifequal %}
+
+<div class="tab-content">
+  <div class="tab-pane in active" id="public">
+
+    <h2 class="pageTitle">{{profile.full_name}}{% ifequal user profile.user %} <a class="editTool" href="{% url 'profiles_edit_profile' %}">(Edit profile)</a>{% endifequal %}</h2>
+
+    <div class="row">
+      <div class="col-md-12">
+        <a id="avatar" href="{% url 'avatar_change' %}">{% avatar profile.user %}</a>
+        {% if profile.bio %}<p id="bio">{{profile.bio}}</p>{% endif %}
+        <div class="vcard">
+          <div class="adr">
+            <p class="locality">{{profile.city}}</p>
+            <p class="country-name">{{profile.country.name}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% ifequal user profile.user %}
+  <div class="tab-pane" id="billing">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Your plan</h3>
+        <p>You are on the <strong class="text-primary">{{ user.userplan.plan }}</strong> plan <a href="{% url 'upgrade_plan' %}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-pencil"></span> Change plan</a></p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Your card</h3>
+      {% if user.card %}
+        <p><span class="glyphicon glyphicon-credit-card"></span> <a href="{{ user.card.get_absolute_url }}">{{ user.card }}</a> <a class="btn btn-danger btn-sm" href="{% url 'card_delete' %}"><span class="glyphicon glyphicon-trash"></span> Remove Card</a></p>
+      {% else %}
+        <p>You don't have a credit card on file. <a href="{% url 'card_create' %}" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-credit-card"></span> Add your card</a></p>
+      {% endif %}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-5">
+        <h3>Your billing info</h3>
+        {% if profile.user.billinginfo %}
+        {% with profile.user.billinginfo as billing_info %}
+        <div class="alert alert-info">
+          <address>
+              <strong>{{ billing_info.name }}</strong><br>
+              {{ billing_info.street }}<br>
+              {{ billing_info.zipcode }}<br>
+              {{ billing_info.city }}, {{ billing_info.country }}<br>
+              {% if billing_info.tax_number %}<br>{% trans "VAT ID" %} {{ billing_info.tax_number }}{% endif %}
+          </address>
+          <a href="{% url 'billing_info_update' %}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-pencil"></span> Edit Billing Info</a></p>
+        </div>
+        {% endwith %}
+        {% else %}
+        <p>No billing info. <a href="{% url 'billing_info_create' %}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus"></span> Add Billing Info</a></p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane" id="grids">
+    {% with user.grid_set.all as object_list %}
+    <div class="row">
+      <div class="col-md-12">
+    {% include "gridder/grids_widget.html" %}
+      </div>
+    </div>
+    {% endwith %}
+  </div>
+{% endifequal %}
+</div>
+{% endblock %}
+
+{% block extrabody %}
+    <script type="text/javascript" charset="utf-8" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+
+{% ifequal user profile.user %}
+     {% compress js %}
+     
+      <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}js/libs/date.js"></script>
+      <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}js/libs/underscore-min.js"></script>
+      <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}js/libs/json2.js"></script>
+      <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}js/libs/backbone-min.js"></script>
+      <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}js/libs/backbone_tastypie.js"></script>
+
+      <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}js/constants.js"></script>
+      <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}js/models/Grid.js"></script>
+      <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}js/collections/GridCollection.js"></script>
+      <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}js/views/GenericView.js"></script>
+      <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}js/views/GridRowView.js"></script>
+      <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}js/views/GridListView.js"></script>
+
+      <script type="text/javascript" charset="utf-8">
+          $(function() {
+              this.collection = new GridCollection;
+              this.collection.fetch({success: function(collection, response) {
+                  this.gridlist = new GridListView({
+                      el: $('#recents'),
+                      parentView: window,
+                      collection: collection
+                  })
+              }});
+
+          });
+      </script>
+     {% endcompress %}
+{% endifequal %}
+{% endblock %}

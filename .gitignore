@@ -1,0 +1,10 @@
+*.pyc
+.DS_Store
+pip-log.txt
+lib/*
+public/grids/*.pdf
+site_media/static/CACHE
+.sass-cache
+.env
+etc/
+*.rdb

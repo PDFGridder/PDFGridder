@@ -1,0 +1,76 @@
+{% extends "gridder_base.html" %}
+{% load i18n %}
+
+{% block extrahead %}
+<link href="{{ STATIC_URL }}css/stripe/themes/stripe.css" rel="stylesheet" type="text/css">
+<script id="tmpl-card" type="text/template">
+{% include "billing/card.tmpl" %}
+</script>
+{% endblock %}
+
+{% block extrabody %}
+<script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}js/libs/underscore-min.js"></script>
+<script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.8.1/jquery.validate.min.js"></script>
+<script src="{{ STATIC_URL }}js/libs/stripe/tag.js"></script>
+{% endblock %}
+
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h1>{% blocktrans with object.id as order_id and object.get_status_display as order_status %}Order #{{ order_id }}
+            (status: {{ order_status }}){% endblocktrans %}</h1>
+
+        {# You should provide displaying django messages in this template #}
+
+        {% with object as order %}
+            {% include "plans/order_detail_table.html" %}
+        {% endwith %}
+
+        <h2>{% trans "Payment" %}</h2>
+        {% if object.completed %}
+
+        <p class="alert alert-success">
+            {% blocktrans with  object.completed as completed %}
+                Payment completed on: {{ completed }}
+            {% endblocktrans %}
+        </p>
+        {% else %}
+
+            {% if object.is_ready_for_payment %}
+                {% block payment_method %}
+
+        <form action="{% url 'stripe_payment' pk=object.id %}" method="post">{% csrf_token %}
+            <div class="row span12">
+                <payment key="{{ STRIPE_PUBLISHABLE_KEY }}"></payment>
+            </div>
+            <div class="row">&nbsp;</div>
+            <div class="row span12">
+                <p><input class="submit btn btn-primary" type="submit" value="Pay Order"></p>
+           </div>
+        </form>
+
+                {% endblock %}
+            {% else %}
+
+        <p class="alert alert-warning">
+            {% blocktrans %}
+                This order is expired. It will accept an incoming payment made earlier, but new payment cannot be
+                initialized. Please make a new order if necessary.
+            {% endblocktrans %}
+        </p>
+
+            {% endif %}
+
+        {% endif %}
+
+        {% if object.status == object.STATUS.NOT_VALID %}
+        <p class="alert alert-danger">
+            {% blocktrans %}
+                This order could not be processed as it is not valid. Please contact with customer service.
+            {% endblocktrans %}
+        </p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

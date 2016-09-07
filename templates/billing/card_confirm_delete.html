@@ -1,0 +1,18 @@
+{% extends "gridder_base.html" %}
+{% load i18n %}
+
+{% block title %}Delete Card | PDFGridder{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <form action="" method="post">{% csrf_token %}
+            <h2>Are you sure you want to delete the following card?</h2>
+            <div class="well">
+                <p><strong>{{ object }}</strong></p>            
+                <p><button class="submit btn btn-danger" type="submit"><span class="glyphicon glyphicon-trash"></span> Delete Card</button></p>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

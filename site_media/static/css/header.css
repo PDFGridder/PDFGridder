@@ -1,0 +1,57 @@
+body.bannered #wrapper {
+    padding-top: 64px;
+}
+#banner {
+    position: fixed;
+    width: 100%;
+    z-index: 9;
+}
+#header {
+    margin-bottom: 20px;
+}
+#footer {
+    margin-top: 20px;
+    padding-top: 10px;
+}
+#header p,
+#footer p
+{
+    padding: 0 3px;
+    margin-bottom: 0;
+}
+#footerCopy {
+    margin-top: 10px;
+}
+#login {
+    text-align: right;
+}
+#login a {
+    font-style: italic;
+}
+#login img {
+    vertical-align: top;
+}
+#homelink {
+    font-size: 72px;
+    line-height: 80px;
+    letter-spacing: -3px;
+    margin-bottom: 0;
+    font-weight: normal;
+}
+#homelink a {
+    display: block;
+    overflow: visible;
+    width: 500px;
+}
+#homelink a:hover {
+    text-decoration: none;
+}
+.pageTitle {
+    color: #7C7777;
+    font-size: 46px;
+    letter-spacing: -1px;
+    line-height: 48px;
+    font-weight: normal;
+    position: relative;
+    top: -6px;
+}

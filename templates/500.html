@@ -1,0 +1,26 @@
+{% extends "gridder_base.html" %}{% load humanize %}
+
+{% block title %}Server Error | PDFGridder{% endblock %}
+{% block extrahead %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery-ui-1.7.1.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/farbtastic.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/gridder.css" type="text/css" media="screen" charset="utf-8" />
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h4>Error</h4>
+        <p>Something went wrong.</p>
+        <p>Please contact support at <a href="mailto:support@pdfgridder.org">support@pdfgridder.org</a>, including the URL of this page.</p>
+        <p>You can still go back to the <a href="{% url 'home' %}">homepage</a>.</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}
+
+{% block extrabody %}
+     <script type="text/javascript" charset="utf-8" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+{% endblock %}

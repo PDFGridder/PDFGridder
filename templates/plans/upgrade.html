@@ -1,0 +1,11 @@
+{% extends 'gridder_base.html' %}
+{% load i18n %}
+
+{% block title %}Choose Plan | PDFGridder{% endblock %}
+
+{% block content %}
+<div class="col-md-12">
+    <h2>{% trans "Choose plan" %}</h2>
+    {% include "plans/plan_table.html" %}
+</div>
+{% endblock %}
